@@ -1,0 +1,37 @@
+[
+  {
+    "firstName": "Mamat",
+    "lastName": "kebot",
+    "bio": "mamat ganteng banget asoy",
+    "profilePicture": "",
+    "UserId": 1
+  },
+  {
+    "firstName": "Inem",
+    "lastName": "asik",
+    "bio": "inem anak bang dolah",
+    "profilePicture": "",
+    "UserId": 2
+  },
+  {
+    "firstName": "Udin",
+    "lastName": "kidal",
+    "bio": "udin yoman",
+    "profilePicture": "",
+    "UserId": 3
+  },
+  {
+    "firstName": "Agus",
+    "lastName": "jarwo",
+    "bio": "jarwo kuat",
+    "profilePicture": "",
+    "UserId": 4
+  },
+  {
+    "firstName": "Joko",
+    "lastName": "gondrong",
+    "bio": "joko sembung",
+    "profilePicture": "",
+    "UserId": 5
+  }
+]
