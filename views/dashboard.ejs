@@ -15,119 +15,242 @@
         background-size: cover;
         background-position: center;
       }
-
-      .btn-disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
+      .custom-input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+      }
+      .form-title {
+        color: #1a202c;
+      }
+      .dropzone-label {
+        transition: background-color 0.3s ease;
+      }
+      .dropzone-label:hover {
+        background-color: #f3f4f6;
+      }
+      .custom-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .submit-btn {
+        background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+      }
+      .submit-btn:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      }
+      .form-title,
+      .text-gray-500 {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .dashboard-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
       }
     </style>
   </head>
   <body class="background h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-medium">
-      <h2
-        class="form-title text-3xl font-extrabold mb-4 text-center text-gray-800"
+    <div class="absolute top-0 right-0">
+      <a
+        href="/"
+        class="dashboard-btn text-white font-semibold py-3 px-6 rounded-lg bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300"
       >
+        Back to Dashboard
+      </a>
+    </div>
+    <div class="custom-card p-8 max-w-md w-full">
+      <h2 class="form-title text-3xl font-extrabold mb-6 text-center">
         Edit Profile
       </h2>
-      <p class="text-lg mb-6 text-center text-gray-600">
+      <p class="text-lg mb-6 text-center text-gray-500">
         Keep your details up to date to ensure the best experience.
       </p>
 
       <form class="space-y-6">
-        <div class="relative z-0 w-full mb-5 group">
+        <!-- Profile Picture Upload -->
+        <div class="flex items-center justify-center w-full mb-6">
+          <label
+            for="dropzone-file"
+            class="dropzone-label flex items-center justify-center w-64 h-64 border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:bg-gray-700 overflow-hidden shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out"
+          >
+            <img id="preview" class="hidden w-full h-full object-cover" />
+            <div
+              id="upload-instructions"
+              class="flex flex-col items-center justify-center w-full h-full"
+            >
+              <svg
+                class="w-20 h-20 mb-3 text-gray-400 dark:text-gray-300"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 16"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                />
+              </svg>
+              <p
+                class="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center"
+              >
+                <span class="font-semibold">Click to upload</span> or drag and
+                drop
+              </p>
+              <p class="text-xs text-gray-400 dark:text-gray-500 text-center">
+                SVG, PNG, JPG, or GIF (MAX. 800x400px)
+              </p>
+            </div>
+            <input
+              id="dropzone-file"
+              type="file"
+              class="hidden"
+              accept="image/*"
+            />
+          </label>
+        </div>
+        <!-- Delete Button -->
+        <div id="delete-button-container" class="flex justify-center hidden">
+          <button
+            type="button"
+            id="deleteImageButton"
+            class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Delete Image
+          </button>
+        </div>
+
+        <!-- First Name -->
+        <div class="relative z-0 w-full mb-6 group">
           <input
-            type="firstName"
+            type="text"
             name="firstName"
             id="firstName"
-            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            class="form-input custom-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
             value="<%= profile.firstName %>"
+            placeholder=" "
           />
           <label
             for="firstName"
-            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            class="form-label absolute text-sm font-medium text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >First Name</label
           >
         </div>
 
-        <div class="relative z-0 w-full mb-5 group">
+        <!-- Last Name -->
+        <div class="relative z-0 w-full mb-6 group">
           <input
-            type="lastName"
+            type="text"
             name="lastName"
             id="lastName"
-            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            class="form-input custom-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
             value="<%= profile.lastName %>"
+            placeholder=" "
           />
           <label
             for="lastName"
-            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            class="form-label absolute text-sm font-medium text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >Last Name</label
           >
         </div>
 
-        <div class="relative z-0 w-full mb-5 group">
+        <!-- Bio -->
+        <div class="relative z-0 w-full mb-6 group">
           <textarea
             name="bio"
             id="bio"
             rows="3"
-            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer resize-none"
+            class="form-input custom-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer resize-none"
+            placeholder=" "
           >
-            <%= profile.bio ? `${profile.bio}` : ''; %>
-        </textarea
+<%= profile.bio ? `${profile.bio}` : ''; %></textarea
           >
           <label
             for="bio"
-            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            class="form-label absolute text-sm font-medium text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >Bio</label
           >
         </div>
 
-        <div class="mb-4">
+        <!-- Privacy Settings -->
+        <div class="mb-6">
           <label class="text-sm font-medium text-gray-700"
             >Privacy Settings</label
           >
+          <div class="flex items-center mt-3">
+            <input id="private-radio" type="radio" name="privacy"
+            class="radio-input w-4 h-4 text-blue-600 border-gray-300
+            focus:ring-blue-500" <%= profile.privacy === 'private' ? 'checked' :
+            '' %> value="private" />
+            <label for="private-radio" class="ml-2 text-gray-700"
+              >Private</label
+            >
+          </div>
+          <div class="flex items-center mt-3">
+            <input id="public-radio" type="radio" name="privacy"
+            class="radio-input w-4 h-4 text-blue-600 border-gray-300
+            focus:ring-blue-500" <%= profile.privacy === 'public' ? 'checked' :
+            '' %> value="public" />
+            <label for="public-radio" class="ml-2 text-gray-700">Public</label>
+          </div>
         </div>
 
-        <div class="flex items-center mb-4">
-          <input
-            id="default-radio-1"
-            type="radio"
-            checked
-            name="default-radio"
-            class="radio-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            for="default-radio-1"
-            class="radio-label ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >Private</label
-          >
-        </div>
-
-        <div class="flex items-center mb-4">
-          <input
-            checked
-            id="default-radio-2"
-            type="radio"
-            value=""
-            name="default-radio"
-            class="radio-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            for="default-radio-2"
-            class="radio-label ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >Public</label
-          >
-        </div>
-
-        <div>
-          <button
-            id="submitButton"
-            type="submit"
-            class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg w-full hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >
-            Submit
-          </button>
-        </div>
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="submit-btn w-full text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        >
+          Save Changes
+        </button>
       </form>
     </div>
   </body>
+  <script>
+    // Preview image function
+    document
+      .getElementById("dropzone-file")
+      .addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("preview");
+        const uploadInstructions = document.getElementById(
+          "upload-instructions"
+        );
+        const deleteButtonContainer = document.getElementById(
+          "delete-button-container"
+        );
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove("hidden");
+            uploadInstructions.classList.add("hidden");
+            deleteButtonContainer.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+    // Delete image function
+    document
+      .getElementById("deleteImageButton")
+      .addEventListener("click", function () {
+        const preview = document.getElementById("preview");
+        const uploadInstructions = document.getElementById(
+          "upload-instructions"
+        );
+        const deleteButtonContainer = document.getElementById(
+          "delete-button-container"
+        );
+        preview.src = "";
+        preview.classList.add("hidden");
+        uploadInstructions.classList.remove("hidden");
+        deleteButtonContainer.classList.add("hidden");
+        document.getElementById("dropzone-file").value = ""; // Clear the input file
+      });
+  </script>
 </html>
