@@ -2,12 +2,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("PostTags", {
+    await queryInterface.createTable("Comments", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      UserId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       PostId: {
         type: Sequelize.INTEGER,
@@ -16,12 +23,11 @@ module.exports = {
           key: "id",
         },
       },
-      TagId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Tags",
-          key: "id",
-        },
+      commentText: {
+        type: Sequelize.TEXT,
+      },
+      createdTime: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("PostTags");
+    await queryInterface.dropTable("Comments");
   },
 };
