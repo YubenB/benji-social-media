@@ -18,5 +18,7 @@ router.use((req, res, next) => {
 
 router.get("/", Controller.home);
 router.get("/:userId/dashboard", Controller.dashboard);
+router.post("/:userId/dashboard");
+router.get("/:userId/setting", Controller.setting);
 
 module.exports = router;
