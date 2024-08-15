@@ -1,7 +1,9 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
+
+const bcrypt = require("bcryptjs");
+const { use } = require("../routers");
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,13 +15,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
-    userName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
+  User.init(
+    {
+      userName: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
+
+  User.beforeCreate(async (user, option) => {
+    const salt = bcrypt.genSaltSync(8);
+    const hash = bcrypt.hashSync(user.password, salt);
+
+    user.password = hash;
   });
   return User;
 };
