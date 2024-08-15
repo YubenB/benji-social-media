@@ -5,7 +5,8 @@ const bcrypt = require("bcryptjs");
 class AuthController {
   static async loginForm(req, res) {
     try {
-      res.render("loginForm");
+      const { error } = req.query;
+      res.render("loginForm", { error });
     } catch (error) {
       res.send(error);
     }
