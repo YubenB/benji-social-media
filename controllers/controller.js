@@ -1,6 +1,4 @@
-const { User, Profile } = require("../models");
-const { Op, where } = require("sequelize");
-const { use } = require("../routers");
+const { User, Profile, Post } = require("../models");
 
 class Controller {
   static async home(req, res) {
@@ -11,12 +9,20 @@ class Controller {
         where: {
           id: userId,
         },
+        include: Profile,
+      });
+
+      const posts = await Post.findAll({
         include: {
-          model: Profile,
+          model: User,
+          include: {
+            model: Profile,
+          },
         },
       });
-      // res.send(user);
-      res.render("home", { user });
+
+      // res.send(posts);
+      res.render("home", { user, posts });
     } catch (error) {
       res.send(error);
     }
