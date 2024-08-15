@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { User, Profile, Post } = require("../models");
 
 class Controller {
@@ -30,8 +31,16 @@ class Controller {
 
   static async dashboard(req, res) {
     try {
-      res.render("dashboard");
+      const { userId } = req.params;
+      const profile = await Profile.findOne({
+        where: {
+          UserId: +userId,
+        },
+      });
+
+      res.render("dashboard", { profile });
     } catch (error) {
+      console.log(error);
       res.send(error);
     }
   }
