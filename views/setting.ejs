@@ -3,9 +3,177 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Setting</title>
+    <%- include('./partials/_flowbite.ejs') %>
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      .background {
+        background-image: url("https://plus.unsplash.com/premium_photo-1684341008385-31d2eb4f3afe?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .btn-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    </style>
   </head>
-  <body>
-    <h1>Setting</h1>
+  <body class="background h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-medium">
+      <h2 class="text-3xl font-extrabold mb-4 text-center text-gray-800">
+        User Setting
+      </h2>
+      <p class="text-lg mb-6 text-center text-gray-600">
+        Update your personal details to keep your profile current and accurate.
+      </p>
+
+      <form id="registrationForm" action="" method="POST" class="space-y-6">
+        <div>
+          <label for="userName" class="block text-gray-800 font-medium mb-2">
+            Username
+          </label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            placeholder="username"
+            class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-gray-800 font-medium mb-2">
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="email"
+            class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label for="oldPassword" class="block text-gray-800 font-medium mb-2">
+            Old Password
+          </label>
+          <div class="relative">
+            <input
+              type="password"
+              id="oldPassword"
+              name="oldPassword"
+              placeholder="old Password"
+              class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              class="absolute inset-y-0 right-0 px-4 text-gray-600"
+              onclick="togglePassword('password', this)"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label for="NewPassword" class="block text-gray-800 font-medium mb-2">
+            New Password
+          </label>
+          <div class="relative">
+            <input
+              type="password"
+              id="NewPassword"
+              name="NewPassword"
+              placeholder="New Password"
+              class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              class="absolute inset-y-0 right-0 px-4 text-gray-600"
+              onclick="togglePassword('confirmPassword', this)"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="confirmPassword"
+            class="block text-gray-800 font-medium mb-2"
+          >
+            Confirm Password
+          </label>
+          <div class="relative">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="confirm password"
+              class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              class="absolute inset-y-0 right-0 px-4 text-gray-600"
+              onclick="togglePassword('confirmPassword', this)"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <button
+            id="submitButton"
+            type="submit"
+            class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg w-full hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <script>
+      function togglePassword(fieldId, button) {
+        var passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          button.textContent = "Hide";
+        } else {
+          passwordField.type = "password";
+          button.textContent = "Show";
+        }
+      }
+
+      function updateButtonState() {
+        var checkbox = document.getElementById("notRobot");
+        var submitButton = document.getElementById("submitButton");
+        if (checkbox.checked) {
+          submitButton.disabled = false;
+          submitButton.classList.remove("btn-disabled");
+        } else {
+          submitButton.disabled = true;
+          submitButton.classList.add("btn-disabled");
+        }
+      }
+
+      document
+        .getElementById("notRobot")
+        .addEventListener("change", updateButtonState);
+
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          var checkbox = document.getElementById("notRobot");
+          if (!checkbox.checked) {
+            alert("Please confirm that you are not a robot.");
+            event.preventDefault(); // Prevent form submission
+          }
+        });
+    </script>
   </body>
 </html>
