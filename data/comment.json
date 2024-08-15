@@ -1,0 +1,26 @@
+[
+    {
+        "UserId": 1,
+        "PostId": 1,
+        "commentText": "Tessss komenn gann",
+        "createdTime": "2023-08-12"
+    },
+    {
+        "UserId": 3,
+        "PostId": 3,
+        "commentText": "Tessss blaa komenn lagi gann",
+        "createdTime": "2024-08-12"
+    },
+    {
+        "UserId": 2,
+        "PostId": 2,
+        "commentText": "Tessss wlee komenn gann",
+        "createdTime": "2023-08-12"
+    },
+    {
+        "UserId": 4,
+        "PostId": 3,
+        "commentText": "Tessss komenn gann",
+        "createdTime": "2022-04-09"
+    }
+]

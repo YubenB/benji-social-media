@@ -343,12 +343,15 @@
                     </div>
 
                     <!-- Comments Section -->
+                    <% if (el.Comments.length > 0) { %>
+
                     <div class="mt-4 space-y-4">
-                      <% for(let j = 0; j < 2; j++) {%>
+                      <% el.Comments.forEach(el => { %>
+
                       <div class="flex items-start space-x-4">
                         <img
                           class="w-8 h-8 object-cover rounded-full"
-                          src="https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg"
+                          src="<%= el.User.Profile.profilePicture %>"
                           alt="Commenter Image"
                         />
                         <div class="flex-1">
@@ -356,35 +359,22 @@
                             <h4
                               class="text-sm font-semibold text-gray-900 dark:text-white"
                             >
-                              Yuben
+                              <%= el.User.userName %>
                             </h4>
                             <span
                               class="text-xs text-gray-500 dark:text-gray-400"
                             >
-                              2023-12-10
+                              <%= el.createdTime %>
                             </span>
                           </div>
                           <p class="text-sm text-gray-700 dark:text-gray-300">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration
-                            in some form, by injected humour, or randomised
-                            words which don't look even slightly believable. If
-                            you are going to use a passage of Lorem Ipsum, you
-                            need to be sure there isn't anything embarrassing
-                            hidden in the middle of text. All the Lorem Ipsum
-                            generators on the Internet tend to repeat predefined
-                            chunks as necessary, making this the first true
-                            generator on the Internet. It uses a dictionary of
-                            over 200 Latin words, combined with a handful of
-                            model sentence structures, to generate Lorem Ipsum
-                            which looks reasonable. The generated Lorem Ipsum is
-                            therefore always free from repetition, injected
-                            humour, or non-characteristic words etc.
+                            <%= el.commentText %>
                           </p>
                         </div>
                       </div>
-                      <% } %>
+                      <% }) %>
                     </div>
+                    <% } %>
                   </div>
                 </div>
               </div>

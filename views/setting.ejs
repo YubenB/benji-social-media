@@ -31,7 +31,12 @@
         Update your personal details to keep your profile current and accurate.
       </p>
 
-      <form id="registrationForm" action="" method="POST" class="space-y-6">
+      <form
+        id="registrationForm"
+        action="/<%= user.id %>/setting"
+        method="POST"
+        class="space-y-6"
+      >
         <div>
           <label for="userName" class="block text-gray-800 font-medium mb-2">
             Username
