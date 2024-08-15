@@ -45,8 +45,9 @@ class Controller {
     }
   }
 
-  static async(req, res) {
+  static async setting(req, res) {
     try {
+      res.render("setting");
     } catch (error) {
       res.send(error);
     }
