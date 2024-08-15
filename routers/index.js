@@ -17,5 +17,6 @@ router.use((req, res, next) => {
 });
 
 router.get("/", Controller.home);
+router.get("/:userId/dashboard", Controller.dashboard);
 
 module.exports = router;
