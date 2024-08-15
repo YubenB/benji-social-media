@@ -35,8 +35,8 @@
             type="text"
             id="userName"
             name="userName"
+            placeholder="username"
             class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
           />
         </div>
 
@@ -44,13 +44,22 @@
           <label for="password" class="block text-gray-800 font-medium mb-2">
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-          />
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="password"
+              class="shadow-md appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              class="absolute inset-y-0 right-0 px-4 text-gray-600"
+              onclick="togglePassword()"
+            >
+              Show
+            </button>
+          </div>
         </div>
 
         <div class="div">
@@ -72,8 +81,21 @@
       <a
         class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-yellow-300 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-yellow-300 md:dark:hover:bg-transparent underline"
         href="/register"
-        >Doesnt have an account?</a
+        >Doesn't have an account?</a
       >
     </div>
+    <script>
+      function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var toggleButton = passwordField.nextElementSibling;
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleButton.textContent = "Hide";
+        } else {
+          passwordField.type = "password";
+          toggleButton.textContent = "Show";
+        }
+      }
+    </script>
   </body>
 </html>
