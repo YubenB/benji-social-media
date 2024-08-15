@@ -15,6 +15,9 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING,
       },
+      profilePicture: {
+        type: Sequelize.STRING,
+      },
       bio: {
         type: Sequelize.STRING,
       },
