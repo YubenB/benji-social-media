@@ -26,13 +26,15 @@ class AuthController {
           password,
           checkUser.password
         );
-
-        const errors = "Password Tidak Sama";
-        isPasswordValid
-          ? res.redirect("/")
-          : res.redirect(`/login?error=${errors}`);
+        if (isPasswordValid) {
+          req.session.userId = checkUser.id; // save session
+          res.redirect("/");
+        } else {
+          const errors = "Password / Username Is not valid or not found";
+          res.redirect(`/login?error=${errors}`);
+        }
       } else {
-        const errors = "Password Tidak Sama";
+        const errors = "Password / Username Is not valid or not found";
 
         res.redirect(`/login?error=${errors}`);
       }
