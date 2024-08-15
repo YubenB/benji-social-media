@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const session = require("express-session");
+const multer = require("multer");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -17,7 +18,9 @@ app.use(
   })
 );
 
-app.use("/", require("./routers"));
+app.use("/uploads", express.static("uploads"));
+
+app.use("/", require("./routers")); // Ensure this points to your router file
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
