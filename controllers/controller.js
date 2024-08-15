@@ -10,22 +10,6 @@ class Controller {
     }
   }
 
-  static async loginForm(req, res) {
-    try {
-      res.render("loginForm");
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
-  static registerForm(req, res) {
-    try {
-      res.render("registerForm");
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
   static async(req, res) {
     try {
     } catch (error) {
