@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 class Controller {
   static async home(req, res) {
     try {
+      console.log(req.session.userId);
       res.render("home");
     } catch (error) {
       res.send(error);
