@@ -3,22 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Edit</title>
+    <%- include('./partials/_flowbite.ejs') %>
+    <title>Edit Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      .background {
+        background-image: url("https://plus.unsplash.com/premium_photo-1684341008385-31d2eb4f3afe?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .btn-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    </style>
   </head>
-  <body>
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <%- include('./partials/_flowbite') %>
-        <title>Document</title>
-      </head>
-      <body>
-        <main class="py-8">
-          <div class="container mx-auto"></div>
-        </main>
-      </body>
-    </html>
+  <body class="background h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-medium">
+      <h2
+        class="form-title text-3xl font-extrabold mb-4 text-center text-gray-800"
+      >
+        Edit Profile
+      </h2>
+      <p class="text-lg mb-6 text-center text-gray-600">
+        Keep your details up to date to ensure the best experience.
+      </p>
+
+      <form class="space-y-6">
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="firstName"
+            name="firstName"
+            id="firstName"
+            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          />
+          <label
+            for="firstName"
+            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >First Name</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="lastName"
+            name="lastName"
+            id="lastName"
+            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          />
+          <label
+            for="lastName"
+            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Last Name</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+          <textarea
+            name="bio"
+            id="bio"
+            rows="3"
+            class="form-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer resize-none"
+            placeholder=" "
+            required
+          ></textarea>
+          <label
+            for="bio"
+            class="form-label absolute text-sm font-medium text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Bio</label
+          >
+        </div>
+
+        <div class="mb-4">
+          <label class="text-sm font-medium text-gray-700"
+            >Privacy Settings</label
+          >
+        </div>
+
+        <div class="flex items-center mb-4">
+          <input
+            id="default-radio-1"
+            type="radio"
+            value=""
+            name="default-radio"
+            class="radio-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            for="default-radio-1"
+            class="radio-label ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Private</label
+          >
+        </div>
+
+        <div class="flex items-center mb-4">
+          <input
+            checked
+            id="default-radio-2"
+            type="radio"
+            value=""
+            name="default-radio"
+            class="radio-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            for="default-radio-2"
+            class="radio-label ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Public</label
+          >
+        </div>
+
+        <div>
+          <button
+            id="submitButton"
+            type="submit"
+            class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg w-full hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
