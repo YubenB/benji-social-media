@@ -18,8 +18,9 @@ class Controller {
     }
   }
 
-  static async(req, res) {
+  static registerForm(req, res) {
     try {
+      res.render("registerForm");
     } catch (error) {
       res.send(error);
     }
