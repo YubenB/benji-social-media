@@ -1,5 +1,5 @@
 const { where } = require("sequelize");
-const { User, Profile, Post } = require("../models");
+const { User, Profile, Post, Comment } = require("../models");
 
 class Controller {
   static async home(req, res) {
@@ -14,12 +14,23 @@ class Controller {
       });
 
       const posts = await Post.findAll({
-        include: {
-          model: User,
-          include: {
-            model: Profile,
+        include: [
+          {
+            model: User,
+            include: {
+              model: Profile,
+            },
           },
-        },
+          {
+            model: Comment,
+            include: {
+              model: User,
+              include: {
+                model: Profile,
+              },
+            },
+          },
+        ],
       });
 
       // res.send(posts);
@@ -47,14 +58,27 @@ class Controller {
 
   static async setting(req, res) {
     try {
-      res.render("setting");
+      const { userId } = req.params;
+      const user = await User.findByPk(userId);
+
+      res.render("setting", { user });
     } catch (error) {
       res.send(error);
     }
   }
 
-  static async(req, res) {
+  static async postSetting(req, res) {
     try {
+      const {
+        userName,
+        email,
+        password,
+        oldPassword,
+        newPassword,
+        confirmPassword,
+      } = req.body;
+      // console.log(req.body, "<<<<");
+      res.redirect("/");
     } catch (error) {
       res.send(error);
     }

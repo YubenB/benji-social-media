@@ -20,5 +20,6 @@ router.get("/", Controller.home);
 router.get("/:userId/dashboard", Controller.dashboard);
 router.post("/:userId/dashboard");
 router.get("/:userId/setting", Controller.setting);
+router.post("/:userId/setting", Controller.postSetting);
 
 module.exports = router;
