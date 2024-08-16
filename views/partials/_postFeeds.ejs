@@ -1,0 +1,241 @@
+<div
+  class="sm:col-span-12 px-16 py-6 lg:col-span-7 md:col-span-9 hide-scrollbar overflow-y-auto h-screen rounded-md shadow-lg bg-white p-4"
+>
+  <% if (inProfile) { %>
+  <div
+    class="bg-white p-6 rounded-lg shadow-md mb-6 flex items-center space-x-6"
+  >
+    <!-- Profile Picture -->
+    <img
+      class="w-20 h-20 object-cover rounded-full"
+      src="/uploads/<%= profilePicture %>"
+      alt="Profile Picture"
+    />
+
+    <!-- Profile Information -->
+    <div class="flex-1">
+      <h2 class="text-2xl font-semibold text-gray-900">
+        <%= user.Profile.firstName %> <%= user.Profile.lastName %>
+      </h2>
+      <p class="text-gray-600 mt-1"><%= user.Profile.bio %></p>
+      <p class="text-gray-500 mt-2"><strong>0</strong> Friends</p>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <a
+      href="/<%= user.id %>/dashboard"
+      class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 rounded-lg px-4 py-2"
+    >
+      Edit Profile
+    </a>
+  </div>
+  <% } %>
+
+  <!-- Create a Post -->
+  <div class="flex items-start space-x-4 mb-6">
+    <img
+      class="w-12 h-12 object-cover rounded-full"
+      src="/uploads/<%= profilePicture %>"
+      alt="Profile Image"
+    />
+    <form
+      class="flex-1"
+      action="/<%= userId%>/postFeed"
+      enctype="multipart/form-data"
+      method="post"
+    >
+      <div class="w-full mb-4 border border-gray-300 rounded-lg bg-gray-50">
+        <div class="px-4 py-2 bg-white rounded-t-lg">
+          <label for="caption" class="sr-only">Your post</label>
+          <textarea
+            id="caption"
+            rows="3"
+            class="w-full px-0 text-sm text-gray-800 bg-white border-0 focus:ring-0 placeholder-gray-500"
+            placeholder="What's happening?"
+            name="caption"
+          ></textarea>
+        </div>
+        <div
+          class="flex items-center justify-between px-3 py-2 border-t border-gray-200"
+        >
+          <div class="flex space-x-2">
+            <!-- File input -->
+            <input
+              type="file"
+              name="content"
+              id="file-input"
+              class="hidden"
+              onchange="showImagePreview(event)"
+            />
+            <button
+              type="button"
+              onclick="document.getElementById('file-input').click();"
+              class="p-2 text-gray-500 hover:text-blue-500"
+            >
+              <svg
+                class="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 18"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                />
+              </svg>
+              <span class="sr-only">Upload image</span>
+            </button>
+            <img
+              id="image-preview"
+              class="mt-4 rounded-lg"
+              style="display: none; max-width: 200px"
+            />
+          </div>
+          <button
+            type="submit"
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200"
+          >
+            Post
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Posts Feed -->
+  <div class="">
+    <% posts.forEach(el => { %>
+    <div class="p-4 bg-white rounded-lg shadow-md mb-8">
+      <div class="flex items-start space-x-4">
+        <img
+          class="w-12 h-12 object-cover rounded-full"
+          src="/uploads/<%= el.User.Profile.profilePicture %>"
+          alt="User Image"
+        />
+        <div class="flex-1">
+          <div class="flex justify-between items-center">
+            <h3 class="text-sm font-semibold text-gray-900">
+              <%= el.User.userName %>
+            </h3>
+            <span class="text-xs text-gray-500"> <%= el.formatDate %> </span>
+          </div>
+          <p class="mt-2 text-gray-700"><%= el.caption %></p>
+          <% if (el.imgUrl) { %>
+          <img
+            class="mt-4 rounded-lg"
+            src="/uploads/<%=el.imgUrl%>"
+            alt="Post Image"
+          />
+          <% } %>
+          <div class="mt-4 flex space-x-4">
+            <button
+              type="button"
+              class="text-sm text-gray-500 hover:text-blue-600"
+            >
+              Like
+            </button>
+          </div>
+
+          <!-- Delete Post Form -->
+          <% if (userSessionId === el.UserId) { %>
+
+          <div class="mt-4">
+            <form action="/<%= userSessionId %>/deletePost" method="post">
+              <button
+                name="postId"
+                type="submit"
+                value="<%= el.id %>"
+                class="text-sm text-red-500 hover:text-red-600"
+              >
+                Delete
+              </button>
+            </form>
+          </div>
+          <% } %>
+
+          <!-- Comments Section -->
+          <div class="mt-4">
+            <h4 class="text-sm font-medium text-gray-900">Comments</h4>
+            <% el.Comments.forEach(comment => { %>
+            <div class="mt-2 flex items-start space-x-3">
+              <img
+                class="w-8 h-8 object-cover rounded-full"
+                src="/uploads/<%= comment.User.Profile.profilePicture %>"
+                alt="Comment User Image"
+              />
+              <div class="flex-1 bg-gray-100 p-3 rounded-lg">
+                <div class="flex justify-between">
+                  <h5 class="text-xs font-semibold text-gray-800">
+                    <%= comment.User.userName %>
+                  </h5>
+                  <span class="text-xs text-gray-500">
+                    <%= comment.formatDate %>
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 mt-1">
+                  <%= comment.commentText %>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+          <!-- Comment Form -->
+          <div class="mt-4">
+            <form
+              action="/<%= userSessionId %>/<%= el.id %>/postComment"
+              method="post"
+            >
+              <label for="chat" class="sr-only">Add comment</label>
+              <div class="flex items-center space-x-3">
+                <textarea
+                  id="chat"
+                  rows="1"
+                  name="commentText"
+                  class="block w-full p-2 text-sm text-gray-900 bg-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Add your comment..."
+                ></textarea>
+                <button
+                  type="submit"
+                  class="p-2 text-blue-500 rounded-full hover:bg-blue-100"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 12h8m4 0a4 4 0 01-4 4H8a4 4 0 01-4-4m16 0a4 4 0 00-4-4m4 4a4 4 0 00-4 4m0-8H4m0 4a4 4 0 014-4h8a4 4 0 014 4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<%- include('./_showpreviewimg') %>

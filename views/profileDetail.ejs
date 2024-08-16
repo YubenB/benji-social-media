@@ -3,28 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <%- include('./partials/_flowbite') %> <%-
-    include('./partials/_hidescrollbar') %>
-    <title>Benji</title>
+    <%- include('./partials/_flowbite') %>
+    <title>Profile Detail</title>
   </head>
-  <body class="">
+  <body>
     <header>
-      <!--Navbar-->
       <%- include('./partials/_navbar', {profilePicture:
       user.Profile.profilePicture, firstName: user.Profile.firstName, lastName:
-      user.Profile.lastName, userId: user.id,}) %>
+      user.Profile.lastName, userId: user.id}) %>
     </header>
-
     <main class="py-8">
       <div class="container mx-auto">
         <div class="grid sm:grid-cols-12 gap-4">
           <!--Shortcut-->
           <%- include('./partials/_shortcut', {userId: user.id}) %>
-
           <!-- Post Content -->
           <%- include('./partials/_postFeeds', {profilePicture:
-          user.Profile.profilePicture, userId: user.id,inProfile: false, posts:
-          posts, }) %>
+          user.Profile.profilePicture, userId: user.id, userSessionId: user.id,
+          posts: posts, inProfile: true}) %>
 
           <!-- Search -->
           <%- include('./partials/_search') %>

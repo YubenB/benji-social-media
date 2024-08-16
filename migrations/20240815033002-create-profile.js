@@ -21,8 +21,8 @@ module.exports = {
       bio: {
         type: Sequelize.STRING,
       },
-      private: {
-        type: Sequelize.BOOLEAN,
+      privacy: {
+        type: Sequelize.STRING,
       },
       UserId: {
         type: Sequelize.INTEGER,

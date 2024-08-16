@@ -69,51 +69,33 @@
         Keep your details up to date to ensure the best experience.
       </p>
 
-      <form class="space-y-6">
+      <form
+        class="space-y-6"
+        enctype="multipart/form-data"
+        action="/<%= userId %>/dashboard"
+        method="post"
+      >
         <!-- Profile Picture Upload -->
         <div class="flex items-center justify-center w-full mb-6">
           <label
             for="dropzone-file"
             class="dropzone-label flex items-center justify-center w-64 h-64 border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:bg-gray-700 overflow-hidden shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out"
           >
-            <img id="preview" class="hidden w-full h-full object-cover" />
-            <div
-              id="upload-instructions"
-              class="flex flex-col items-center justify-center w-full h-full"
-            >
-              <svg
-                class="w-20 h-20 mb-3 text-gray-400 dark:text-gray-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 16"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                />
-              </svg>
-              <p
-                class="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center"
-              >
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
-              </p>
-              <p class="text-xs text-gray-400 dark:text-gray-500 text-center">
-                SVG, PNG, JPG, or GIF (MAX. 800x400px)
-              </p>
-            </div>
+            <img
+              id="preview"
+              class="w-full h-full object-cover"
+              src="/uploads/<%= profile.profilePicture %>"
+              alt="Profile Picture"
+            />
             <input
               id="dropzone-file"
+              name="avatar"
               type="file"
               class="hidden"
-              accept="image/*"
             />
           </label>
         </div>
+
         <!-- Delete Button -->
         <div id="delete-button-container" class="flex justify-center hidden">
           <button
@@ -168,7 +150,7 @@
             class="form-input custom-input block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer resize-none"
             placeholder=" "
           >
-<%= profile.bio ? `${profile.bio}` : ''; %></textarea
+          <%= profile.bio ? `${profile.bio}` : ''; %></textarea
           >
           <label
             for="bio"
@@ -185,8 +167,8 @@
           <div class="flex items-center mt-3">
             <input id="private-radio" type="radio" name="privacy"
             class="radio-input w-4 h-4 text-blue-600 border-gray-300
-            focus:ring-blue-500" <%= profile.privacy === 'private' ? 'checked' :
-            '' %> value="private" />
+            focus:ring-blue-500" <%= profile.privacy === 'Private' ? 'checked' :
+            '' %> value="Private" />
             <label for="private-radio" class="ml-2 text-gray-700"
               >Private</label
             >
@@ -194,8 +176,8 @@
           <div class="flex items-center mt-3">
             <input id="public-radio" type="radio" name="privacy"
             class="radio-input w-4 h-4 text-blue-600 border-gray-300
-            focus:ring-blue-500" <%= profile.privacy === 'public' ? 'checked' :
-            '' %> value="public" />
+            focus:ring-blue-500" <%= profile.privacy === 'Public' ? 'checked' :
+            '' %> value="Public" />
             <label for="public-radio" class="ml-2 text-gray-700">Public</label>
           </div>
         </div>

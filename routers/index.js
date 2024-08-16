@@ -24,9 +24,16 @@ router.use((req, res, next) => {
 
 // Existing routes
 router.get("/", Controller.home);
+router.get("/logout", AuthController.logout);
+router.get("/:userId/profile", Controller.profile);
 router.post("/:userId/postFeed", upload.single("content"), Controller.postFeed);
 router.get("/:userId/dashboard", Controller.dashboard);
-router.post("/:userId/dashboard");
+router.post("/:userId/deletePost", Controller.deletePost);
+router.post(
+  "/:userId/dashboard",
+  upload.single("avatar"),
+  Controller.postDashboard
+);
 router.get("/:userId/setting", Controller.setting);
 router.post("/:userId/setting", Controller.postSetting);
 router.post("/:userId/:postId/postComment", Controller.postComment);

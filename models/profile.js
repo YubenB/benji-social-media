@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { profile } = require("../controllers/controller");
 module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
     /**
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       bio: DataTypes.STRING,
       profilePicture: DataTypes.STRING,
-      private: DataTypes.BOOLEAN,
+      privacy: DataTypes.STRING,
       UserId: DataTypes.INTEGER,
     },
     {
@@ -28,11 +29,21 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Profile.beforeCreate(async (profile, option) => {
-    if (!profile.firstName && !profile.lastName && !profile.profilePicture) {
+    if (!profile.firstName && !profile.lastName) {
       profile.firstName = "Edit";
-      profile.lastName = "Your name";
-      profile.profilePicture =
-        "https://wallpapers-clan.com/wp-content/uploads/2022/08/default-pfp-18.jpg";
+      profile.lastName = "Your Name";
+    }
+    if (!profile.profilePicture) {
+      profile.profilePicture = "default";
+    }
+    if (!profile.privacy) {
+      profile.privacy = "Public";
+    }
+  });
+
+  Profile.beforeUpdate(async (profile, option) => {
+    if (profile.profilePicture.length === 0) {
+      profile.profilePicture = "default";
     }
   });
   return Profile;
