@@ -116,7 +116,8 @@
       </div>
     </form>
   </div>
-
+  <% let location = inProfile ? `/${user.id}/profile` : '/' %>
+  <a href="<%= location %>?sort=newest" class="text-underline mb-2">Newest</a>
   <!-- Posts Feed -->
   <div class="">
     <% posts.forEach(el => { %>

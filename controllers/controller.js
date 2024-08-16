@@ -1,10 +1,10 @@
 const { Op } = require("sequelize");
 const { User, Profile, Post, Comment } = require("../models");
-
+const formatDate = require("../helpers/formatDate");
 class Controller {
   static async home(req, res) {
     try {
-      const search = req.query.search;
+      const { search, sort } = req.query;
       const userSessionId = req.session.userId;
 
       const user = await User.findOne({
@@ -15,39 +15,11 @@ class Controller {
         include: Profile,
       });
 
-      let option = {
-        include: [
-          {
-            model: User,
-            include: {
-              model: Profile,
-            },
-          },
-          {
-            model: Comment,
-            include: {
-              model: User,
-              include: {
-                model: Profile,
-              },
-            },
-          },
-        ],
-      };
+      const posts = await Post.customFind(search, sort);
 
-      if (search) {
-        option.include[0].where = {
-          userName: {
-            [Op.iLike]: `%${search}%`,
-          },
-        };
-      }
-
-      const posts = await Post.findAll(option);
-
-      res.render("home", { user, posts, userSessionId });
+      res.render("home", { user, posts, userSessionId, formatDate });
     } catch (error) {
-      res.send(error);
+      res.send(error.message);
     }
   }
 
@@ -146,9 +118,9 @@ class Controller {
         imgUrl = filename;
       }
 
-      const newPost = await Post.create({
+      await Post.create({
         caption: caption,
-        imgUrl: imgUrl, // Save the filename, or use the full path if required
+        imgUrl: imgUrl,
         UserId: userId,
         postDate: new Date(),
       });
@@ -178,7 +150,7 @@ class Controller {
   static async profile(req, res) {
     try {
       const { userId } = req.params;
-
+      const { sort } = req.query;
       const user = await User.findOne({
         attributes: ["id", "userName", "email"],
         include: Profile,
@@ -187,7 +159,7 @@ class Controller {
         },
       });
 
-      const posts = await Post.findAll({
+      let option = {
         include: [
           {
             model: User,
@@ -208,10 +180,16 @@ class Controller {
         where: {
           UserId: userId,
         },
-      });
+      };
+
+      if (sort) {
+        option.order = [["postDate", "desc"]];
+      }
+
+      const posts = await Post.findAll(option);
 
       // res.send(user);
-      res.render("profileDetail", { user, posts });
+      res.render("profileDetail", { user, posts, formatDate });
     } catch (error) {
       res.send(error.message);
     }

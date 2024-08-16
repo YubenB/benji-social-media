@@ -25,6 +25,42 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.User);
       Post.hasMany(models.Comment);
     }
+
+    static async customFind(search, sort) {
+      let option = {
+        include: [
+          {
+            model: sequelize.models.User,
+            include: {
+              model: sequelize.models.Profile,
+            },
+          },
+          {
+            model: sequelize.models.Comment,
+            include: {
+              model: sequelize.models.User,
+              include: {
+                model: sequelize.models.Profile,
+              },
+            },
+          },
+        ],
+      };
+
+      if (search) {
+        option.include[0].where = {
+          userName: {
+            [Op.iLike]: `%${search}%`,
+          },
+        };
+      }
+
+      if (sort) {
+        option.order = [["postDate", "desc"]];
+      }
+
+      return await Post.findAll(option);
+    }
   }
   Post.init(
     {
