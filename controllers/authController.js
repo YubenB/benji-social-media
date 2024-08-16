@@ -44,9 +44,20 @@ class AuthController {
     }
   }
 
+  static async logout(req, res) {
+    try {
+      req.session.destroy();
+
+      res.redirect("/login");
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
   static registerForm(req, res) {
     try {
-      res.render("registerForm");
+      const { errors } = req.query;
+      res.render("registerForm", { errors });
     } catch (error) {
       res.send(error);
     }
@@ -54,8 +65,12 @@ class AuthController {
 
   static async postRegister(req, res) {
     try {
-      const { userName, email, password } = req.body;
-      console.log(req.body);
+      const { userName, email, password, confirmPassword } = req.body;
+
+      if (password !== confirmPassword) {
+        const errors = `Password and Confirm Password is not the same`;
+        res.redirect(`/register?errors=${errors}`);
+      }
 
       const newUser = await User.create({ userName, email, password });
       await Profile.create({
@@ -63,7 +78,13 @@ class AuthController {
       });
       res.redirect("/login");
     } catch (error) {
-      res.send(error);
+      if (error.name === "SequelizeValidationError") {
+        const errors = error.errors.map((el) => el.message);
+
+        res.send(errors);
+      } else {
+        res.send(error);
+      }
     }
   }
 }

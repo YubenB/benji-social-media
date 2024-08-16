@@ -3,35 +3,40 @@
     "firstName": "Mamat",
     "lastName": "kebot",
     "bio": "mamat ganteng banget asoy",
-    "profilePicture": "https://avatars.githubusercontent.com/u/69592337?v=4",
-    "UserId": 1
+    "profilePicture": "a04d74290c86f49a1537f807cd6dc88e",
+    "UserId": 1,
+    "privacy": "Public"
   },
   {
     "firstName": "Inem",
     "lastName": "asik",
     "bio": "inem anak bang dolah",
-    "profilePicture": "https://nyaringindonesia.com/wp-content/uploads/2022/11/Joko-Kendil.jpeg",
-    "UserId": 2
+    "profilePicture": "default",
+    "UserId": 2,
+    "privacy": "Private"
   },
   {
     "firstName": "Udin",
     "lastName": "kidal",
     "bio": "udin yoman",
-    "profilePicture": "https://cdn.antaranews.com/cache/1200x800/2019/06/21/PicsArt_06-21-01.41.47.jpg",
-    "UserId": 3
+    "profilePicture": "default",
+    "UserId": 3,
+    "privacy": "Private"
   },
   {
     "firstName": "Agus",
     "lastName": "jarwo",
     "bio": "jarwo kuat",
-    "profilePicture": "https://c02.purpledshub.com/uploads/sites/41/2021/03/Blobfish_Kerryn-Parkinson-hero-47ec84c.jpg",
-    "UserId": 4
+    "profilePicture": "default",
+    "UserId": 4,
+    "privacy": "Public"
   },
   {
     "firstName": "Joko",
     "lastName": "gondrong",
     "bio": "joko sembung",
-    "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKq8oo73MGnjVDQ6As4B9lp1_ASmQQqRDgxA&s",
-    "UserId": 5
+    "profilePicture": "ht9GcTKq8oo73MGnjVDQ6As4B9lp1_ASmQQqRDgxA&s",
+    "UserId": 5,
+    "privacy": "Public"
   }
 ]
